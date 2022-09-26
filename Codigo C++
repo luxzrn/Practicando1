@@ -1,0 +1,147 @@
+#include<iostream>
+#include<conio.h>
+#include<stdlib.h>
+
+using namespace std;
+using namespace System;
+
+int ingresarDatos() {
+
+	int x;
+	do {
+		cin >> x;
+	} while (x < 0);
+
+	return x;
+}
+
+int ingresarCantidad() {
+
+	int c;
+	do {
+		cout << "Cantidad de cajas: ";
+		cin >> c;
+	} while (c < 1 || c >5000);
+
+	return c;
+
+}
+
+char ingresarMovimiento(){
+
+	char tm;
+	do {
+		cout << "Tipo de Movimiento: ";
+		cin >> tm;
+		tm = toupper(tm);
+	} while (tm != 'I' && tm != 'S' && tm != 'X');
+
+	return tm;
+}
+ 
+char ingresarTipoProd() {
+
+	char tp;
+
+	do {
+
+		cout << "Tipo de producto: ";
+		cin >> tp;
+		tp = toupper(tp);
+
+	} while (tp != 'C' && tp != 'T' && tp != 'P');
+
+	return tp;
+}
+
+int main() {
+
+	int sc, st, sp, cant , mc = 0 , mt = 0 , mp = 0;
+	char tm, tp;
+
+	cout << "Ingrese stock inicial de Cartuchos: ";
+	sc = ingresarDatos();
+	cout << "Ingrese stock inicial de tapas: ";
+	st = ingresarDatos();
+	cout << "Ingrese stock inicial de puntas: ";
+	sp = ingresarDatos();
+	do {
+		cout << "======================" << endl;
+		tm = ingresarMovimiento();
+		if (tm != 'X') {
+			cant = ingresarCantidad();
+			tp = ingresarTipoProd();
+
+			switch (tm)
+			{
+			case 'I':
+				if (tp == 'C') {
+					sc += cant;
+					mc++;
+				}
+				else
+					if (tp == 'T') {
+						st += cant;
+						mt++;
+					}
+					else
+						if (tp == 'P') {
+							sp += cant;
+							mp++;
+						}
+				break;
+			case'S':
+				if (tp == 'C') {
+					mc++;
+					sc -= cant;
+				}
+				else
+					if (tp == 'T') {
+						mt++;
+						st -= cant;
+					}
+					else
+						if (tp == 'P') {
+							mp++;
+							sp -= cant;
+						}
+			}
+
+		}
+
+
+
+	} while (tm != 'X');
+
+	cout << "=============================" << endl;
+	cout << "Los resultados son: " << endl;
+	cout << "Tapas       : " << st << endl;
+	cout << "Cartuchos   : " << sc << endl;
+	cout << "Puntas      : " << sp << endl;
+	cout << endl;
+	cout << "Porductos con mayores movimientos: " << endl;
+
+	if (mc > mc && mc > mt && mp > mt) {
+		cout << "Cartuchos" << endl;
+		cout << "Puntas" << endl;
+		cout << "Tapas" << endl;
+	}else
+		if (mp > mc && mp > mt && mc > mt) {
+			cout << "Puntas" << endl;
+			cout << "Cartuchos" << endl;
+			cout << "Tapas" << endl;
+		}else
+			if (mt > mc && mt > mp && mc > mp) {
+				cout << "Tapas" << endl;
+				cout << "Cartuchos" << endl;
+				cout << "Puntas" << endl;
+			}else
+				if (mc == mt && mt == mp) {
+					cout << "Existe Empate " << endl;
+				}
+
+
+
+	system("pause");
+	return 0;
+}
